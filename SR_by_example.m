@@ -111,21 +111,9 @@ for next_target = next_target_start:NUMCELLS
         end
     end
     
-%     sum_dists = sum(distances,3);
-%     s = repmat(sum_dists,1,1,m);
     new_im = weighted_dists./sum_weights;
     new_im(isnan(new_im)) = DEFAULT_BG_GREYVAL;
     new_im = imsharpen(new_im);
-    %for debugging purposes
-    %     for i = 1:htg
-    %         for j = 1:wtg
-    %             n = num_preds(i,j);
-    %             weights_test = distances(i,j,1:n)/sum(distances(i,j,1:n));
-    %             new_im(i,j) = sum(weights_test.*preds(i,j,1:n));
-    %             assert(abs(new_im_test(i,j)-new_im(i,j))<EPSILON);
-    % %             new_im(i,j) = preds(i,j,1);
-    %         end
-    %     end
     imshow(new_im);
     im_pyr(next_target) = {new_im};
     %add new learned patches to db.

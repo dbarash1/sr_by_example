@@ -41,29 +41,9 @@ if(checkbounds( h,w,pi,pj,step ))
     
     
     weight = distance(lr_patch,lr_example); 
-%     [h,w] = size(zeros(1+bottom-top,1+right-left));
-%     [xx, yy] = meshgrid(1:w,1:h);
-%     dists_mat = max(abs(xx-ceil(w/2)),abs(yy-ceil(h/2)))+1;
-%     dists_mat = ones(size(dists_mat))./dists_mat;
-%     dists_mat = fspecial('gaussian',W );
-%     dists_mat=dists_mat(1:h,1:w);
-%     weights = dists_mat.*weight;
     weights = weight;
     sum_weights(top:bottom, left:right) = sum_weights(top:bottom, left:right) + weights;
-    weighted_dists(top:bottom,left:right) = weighted_dists(top:bottom,left:right) + Vq.*weights;% + reshape(dist_pixel_from_center',1,numel(dist_pixel_from_center));
-    
-     %for debugging purposes
-%     for i = top:bottom
-%         for j = left:right
-%             %num_preds(i,j) = num_preds(i,j) + 1;
-%             assert(num_preds(i,j)<=MAX_PREDS);
-%             dist_pixel_from_center_tst = sqrt(((i+0.5) - pi)^2 + ((j+0.5) - pj)^2);
-%             distances_test(i,j,num_preds(i,j)) = distance(lr_patch,lr_example) + dist_pixel_from_center_tst;
-%             preds(i,j,num_preds(i,j)) = Vq(1+i-top,j+1-left);
-%             assert(abs(preds_test(i,j,num_preds(i,j)) - preds(i,j,num_preds(i,j))) < EPSILON);
-%             assert(abs(distances(i,j,num_preds(i,j)) - distances_test(i,j,num_preds(i,j))) < EPSILON);
-%         end
-%     end
+    weighted_dists(top:bottom,left:right) = weighted_dists(top:bottom,left:right) + Vq.*weights;    
     
 end
 
