@@ -33,6 +33,10 @@ else
     load('C:\Users\danny\Documents\MATLAB\projectSRBE3\bin_data\matlab.mat');
     next_target_start = highest_lvl_filled+1;
 end;
+
+%% Run knnsearch.
+[NNs,D] = knnsearch(patches_db,input_patches_p,'K',K);
+
 %% Upscale by factor ALPHA until reaching target res.
 for next_target = next_target_start:NUMCELLS
     
@@ -49,8 +53,7 @@ for next_target = next_target_start:NUMCELLS
     
     
     
-    %% Run knnsearch.
-    [NNs,D] = knnsearch(patches_db,input_patches_p,'K',K);
+    
     
     %% for each nn, compute target patch.
     for p_idx=1:size(NNs,1)
